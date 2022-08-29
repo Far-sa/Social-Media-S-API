@@ -2,6 +2,8 @@ const express = require('express')
 const dotenv = require('dotenv')
 
 const connectDB = require('./config/db')
+const { errorHandler } = require('./middleware/errorHandler')
+const { setHeaders } = require('./middleware/headers')
 
 //? Configuration
 dotenv.config()
@@ -12,6 +14,7 @@ const app = express()
 //? Middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(setHeaders)
 
 //? Routes
 app.use('/', (req, res) => {
@@ -19,6 +22,7 @@ app.use('/', (req, res) => {
 })
 
 //? ERR Handler
+app.use(errorHandler)
 
 //?Lunch App
 const PORT = process.env.PORT || 4000
