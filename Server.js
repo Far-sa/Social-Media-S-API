@@ -21,10 +21,9 @@ app.use(helmet())
 app.use(morgan('common'))
 
 //? Routes
-app.use('/', (req, res) => {
-  res.send('Hello World')
-})
-app.use('/users', require('./routes/users'))
+
+app.use('/api/users', require('./routes/users'))
+app.use('/api/auth', require('./routes/auth'))
 
 //? ERR Handler
 app.use(errorHandler)
