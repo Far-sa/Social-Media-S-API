@@ -8,4 +8,8 @@ const router = new Router()
 //@ Route POST/api/users/register
 router.post('/register', userController.registerUser)
 
+//@ Description
+//@ Route POST/api/users/login
+router.post('/login', userController.loginUser)
+
 module.exports = router

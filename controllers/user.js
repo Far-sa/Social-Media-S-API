@@ -15,6 +15,23 @@ exports.registerUser = async (req, res) => {
     await user.save()
     res.send(200).json({ success: true, message: 'User saved' })
   } catch (err) {
-    console.log(err)
+    res.status(500).json({ message: err.message })
+  }
+}
+
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
+    if (!user) res.status(404).json({ message: 'User not found' })
+
+    const validPassword = await bcrypt.compare(user.password, password)
+    if (!validPassword) res.status(400).json({ message: 'Invalid password' })
+
+    return res
+      .status(200)
+      .json({ success: true, user, message: 'Login successful' })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
 }
