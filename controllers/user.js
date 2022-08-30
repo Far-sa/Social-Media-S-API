@@ -79,3 +79,13 @@ exports.deleteUser = async (req, res) => {
       .json({ message: 'You do not have permission to delete this user' })
   }
 }
+
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.body.params)
+    const { password, updatedAt, ...other } = user._doc
+    res.status(200).json({ success: true, other })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+}
