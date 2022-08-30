@@ -1,5 +1,7 @@
 const { Router } = require('express')
 
+const userController = require('../controllers/user')
+
 const router = new Router()
 
 //@ Description Get a User
@@ -16,9 +18,7 @@ router.get('/', (req, res) => {
 
 //@ Description update a user
 //@ Route PUT/api/users/update:id
-router.put('/', (req, res) => {
-  res.send('Users Info..')
-})
+router.put('/:id', userController.updateUser)
 
 //@ Description delete a user
 //@ Route DELETE/api/users/update:id
