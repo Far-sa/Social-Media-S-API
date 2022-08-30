@@ -17,13 +17,11 @@ router.get('/', (req, res) => {
 })
 
 //@ Description update a user
-//@ Route PUT/api/users/update:id
-router.put('/:id', userController.updateUser)
+//@ Route PUT/api/users/edit:id
+router.put('/edit/:id', userController.updateUser)
 
 //@ Description delete a user
-//@ Route DELETE/api/users/update:id
-router.delete('/', (req, res) => {
-  res.send('Users Info..')
-})
+//@ Route DELETE/api/users/remove:id
+router.delete('/remove/:id', userController.deleteUser)
 
 module.exports = router

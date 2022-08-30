@@ -37,6 +37,8 @@ exports.loginUser = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
+  //TODO data Validation
+
   if (req.body.userId === req.params.id) {
     if (req.body.password) {
       try {
@@ -58,5 +60,22 @@ exports.updateUser = async (req, res) => {
     res
       .status(403)
       .json({ message: 'You do not have permission to update this user' })
+  }
+}
+
+exports.deleteUser = async (req, res) => {
+  if (req.body.userId === req.params.id) {
+    try {
+      const user = User.findByIdAndDelete(req.params.id)
+      res
+        .status(200)
+        .json({ success: true, message: 'Deleted user successfully' })
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  } else {
+    res
+      .status(403)
+      .json({ message: 'You do not have permission to delete this user' })
   }
 }
