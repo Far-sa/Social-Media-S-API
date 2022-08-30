@@ -6,13 +6,11 @@ const router = new Router()
 
 //@ Description Get a User
 //@ Route GET/api/users/:id
-router.get('/', (req, res) => {
-  res.send('Users Info..')
-})
+router.get('/:id', userController.getUserById)
 
 //@ Description Follow a User
 //@ Route GET/api/users/:id
-router.get('/', (req, res) => {
+router.put('/follow/:id', (req, res) => {
   res.send('Users Info..')
 })
 

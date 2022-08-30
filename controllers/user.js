@@ -66,7 +66,7 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   if (req.body.userId === req.params.id) {
     try {
-      const user = User.findByIdAndDelete(req.params.id)
+      const user = await User.findByIdAndDelete(req.params.id)
       res
         .status(200)
         .json({ success: true, message: 'Deleted user successfully' })
@@ -87,5 +87,25 @@ exports.getUserById = async (req, res) => {
     res.status(200).json({ success: true, other })
   } catch (err) {
     res.status(500).json({ message: err.message })
+  }
+}
+
+exports.followUser = async (req, res) => {
+  if (req.body.userId !== req.params.id) {
+    try {
+      const user = await User.findById(req.params.id)
+      const currentUser = await User.findById(req.body.userId)
+      if (!user.followers.includes(req.body.userId)) {
+        res.status(403).json('message : you already follow this user')
+      }
+      return await user.updateOne({ $push: { followers: req.body.userId } })
+      res
+        .status(200)
+        .json({ success: true, message: 'Deleted user successfully' })
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  } else {
+    res.status(403).json({ message: 'You are not able to follow yourself' })
   }
 }
