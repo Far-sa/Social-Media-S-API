@@ -1,9 +1,11 @@
 const { Router } = require('express')
 
+const userController = require('../controllers/user')
+
 const router = new Router()
 
-router.get('/', (req, res) => {
-  res.send('Auth Info..')
-})
+//@ Description
+//@ Route POST/api/users/register
+router.post('/register', userController.registerUser)
 
 module.exports = router
